@@ -1,27 +1,50 @@
 # Allin
 
-[![Hex.pm](https://img.shields.io/hexpm/v/allin.svg)](https://hex.pm/packages/allin)
-[![Docs](https://img.shields.io/badge/hexdocs-docs-8e7ce6.svg)](https://hexdocs.pm/allin)
-[![CI](https://github.com/maxohq/allin/actions/workflows/ci.yml/badge.svg)](https://github.com/maxohq/allin/actions/workflows/ci.yml)
-
-`Allin` is ...
-
-## Usage
+Example how to use multiple DB engines with a single Repo and [MaxoAdapt](https://github.com/maxohq/maxo_adapt).
 
 ```elixir
-IO.puts "hello"
+$ iex -S mix
+** (Mix) Could not start application allin: exited in: Allin.Application.start(:normal, [])
+    ** (EXIT) an exception was raised:
+        ** (RuntimeError) PLEASE PROVIDE `DBTYPE` ENV variable - psql / mysql / sqlite!
+            (allin 0.1.0) lib/allin/setup.ex:13: Allin.Setup.assert_correct_db_type!/0
+            (allin 0.1.0) lib/allin/setup.ex:18: Allin.Setup.setup_repo!/0
+            (allin 0.1.0) lib/allin/application.ex:8: Allin.Application.start/2
+            (kernel 8.5.3) application_master.erl:293: :application_master.start_it_old/4
+
+
+$ DBTYPE=sqlite iex -S mix
+iex(1)> Allin.Repo.query("select 2 + 2")
+{:ok,
+ %Exqlite.Result{
+   command: :execute,
+   columns: ["2 + 2"],
+   rows: [[4]],
+   num_rows: 1
+ }}
+
+
+$ DBTYPE=mysql iex -S mix
+iex(1)> Allin.Repo.query("select 2 + 2")
+{:ok,
+ %MyXQL.Result{
+   columns: ["2 + 2"],
+   connection_id: 109,
+   last_insert_id: nil,
+   num_rows: 1,
+   rows: [[4]],
+   num_warnings: 0
+ }}
+
+$ DBTYPE=psql iex -S mix
+iex(1)> Allin.Repo.query("select 2 + 2")
+{:ok,
+ %Postgrex.Result{
+   command: :select,
+   columns: ["?column?"],
+   rows: [[4]],
+   num_rows: 1,
+   connection_id: 779,
+   messages: []
+ }}
 ```
-
-## Installation
-
-The package can be installed by adding `allin` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:allin, "~> 0.1"}
-  ]
-end
-```
-
-The docs can be found at <https://hexdocs.pm/allin>.
