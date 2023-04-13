@@ -4,7 +4,7 @@ Example how to use multiple DB engines with a single Repo and [MaxoAdapt](https:
 
 ## Setup
 
-- please start postgres / mysql with the included docker-compose file!
+Please start postgres / mysql with the included docker-compose file!
 
 ```bash
 $ docker compose up
@@ -73,3 +73,5 @@ iex(1)> Allin.Repo.query("select 2 + 2")
 ```
 
 Enjoy! 💜
+
+Start with the [lib/allin/application.ex](https://github.com/maxohq/allin/blob/main/lib/allin/application.ex) file to figure out the internal workings. It's not a lot of code :)
