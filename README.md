@@ -2,7 +2,17 @@
 
 Example how to use multiple DB engines with a single Repo and [MaxoAdapt](https://github.com/maxohq/maxo_adapt).
 
-```elixir
+## Setup
+
+- please start postgres / mysql with the included docker-compose file!
+
+```bash
+$ docker compose up
+```
+
+Now try the Elixir app without any options:
+
+```bash
 $ iex -S mix
 ** (Mix) Could not start application allin: exited in: Allin.Application.start(:normal, [])
     ** (EXIT) an exception was raised:
@@ -12,7 +22,13 @@ $ iex -S mix
             (allin 0.1.0) lib/allin/application.ex:8: Allin.Application.start/2
             (kernel 8.5.3) application_master.erl:293: :application_master.start_it_old/4
 
+```
 
+It fails, because we did not provide the desired DB type to be configured. Let's do it now:
+
+With SQLITE:
+
+```elixir
 $ DBTYPE=sqlite iex -S mix
 iex(1)> Allin.Repo.query("select 2 + 2")
 {:ok,
@@ -22,8 +38,11 @@ iex(1)> Allin.Repo.query("select 2 + 2")
    rows: [[4]],
    num_rows: 1
  }}
+```
 
+With MySQL:
 
+```elixir
 $ DBTYPE=mysql iex -S mix
 iex(1)> Allin.Repo.query("select 2 + 2")
 {:ok,
@@ -35,7 +54,11 @@ iex(1)> Allin.Repo.query("select 2 + 2")
    rows: [[4]],
    num_warnings: 0
  }}
+```
 
+And with Postgres
+
+```elixir
 $ DBTYPE=psql iex -S mix
 iex(1)> Allin.Repo.query("select 2 + 2")
 {:ok,
@@ -48,3 +71,5 @@ iex(1)> Allin.Repo.query("select 2 + 2")
    messages: []
  }}
 ```
+
+Enjoy! 💜
