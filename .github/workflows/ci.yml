@@ -52,4 +52,4 @@ jobs:
       - run: mix deps.get
       - run: mix deps.compile
       - run: mix format --check-formatted
-      - run: mix test
+      - run: DBTYPE=sqlite mix test
