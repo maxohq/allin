@@ -5,9 +5,9 @@ defmodule Allin.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Allin.RepoPsql
-      # Allin.RepoMysql
-      # Allin.RepoSqlite
+      Allin.RepoPsql,
+      Allin.RepoMysql,
+      Allin.RepoSqlite
     ]
 
     opts = [strategy: :one_for_one, name: Allin.Supervisor]

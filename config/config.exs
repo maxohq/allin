@@ -16,7 +16,7 @@ config :allin, Allin.RepoMysql,
   hostname: "127.0.0.1",
   port: 5552
 
-config :allin, Allin.RepoSqlite, database: "./allin_dev.db"
+config :allin, Allin.RepoSqlite, database: "./data/allin_dev.db"
 
 config :allin,
   ecto_repos: [Allin.RepoSqlite, Allin.RepoMysql, Allin.RepoPsql]

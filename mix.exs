@@ -51,9 +51,9 @@ defmodule Allin.MixProject do
       {:ecto_sqlite3, "~> 0.10"},
 
       # DB drivers
-      {:postgrex, "~> 0.17", optional: true},
-      {:myxql, "~> 0.6.3", optional: true},
-      {:exqlite, "~> 0.13", optional: true},
+      {:postgrex, "~> 0.17", optional: false},
+      {:myxql, "~> 0.6.3", optional: false},
+      {:exqlite, "~> 0.13", optional: false},
 
       # DEV
       {:ex_doc, "~> 0.29", only: :dev, runtime: false},
