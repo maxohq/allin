@@ -3,6 +3,6 @@ defmodule AllinTest do
   use MnemeDefaults
 
   test "greeting" do
-    auto_assert(Allin.greeting())
+    auto_assert("Welcome to Maxo!" <- Allin.greeting())
   end
 end

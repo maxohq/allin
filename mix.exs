@@ -48,6 +48,7 @@ defmodule Allin.MixProject do
       {:maxo_adapt, "~> 0.1"},
       {:ecto, "~> 3.10"},
       {:ecto_sql, "~> 3.10"},
+      {:ecto_sqlite3, "~> 0.10"},
 
       # DB drivers
       {:postgrex, "~> 0.17", optional: true},
