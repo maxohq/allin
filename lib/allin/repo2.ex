@@ -1,9 +1,5 @@
-defmodule Allin.Repo do
-  # use Ecto.Repo,
-  #   otp_app: :allin,
-  #   adapter: Ecto.Adapters.SQLite3
-
-  use MaxoAdapt
+defmodule Allin.Repo2 do
+  use MaxoAdapt, mode: :get_compiled
 
   behaviour do
     @doc ~S"""

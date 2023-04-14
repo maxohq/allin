@@ -30,21 +30,21 @@ defmodule Allin.Setup do
     end
   end
 
-  # def to_mysql do
-  #   :application.ensure_all_started(:myxql)
-  #   Allin.RepoMysql.start_link()
-  #   Allin.Repo.configure(Allin.RepoMysql)
-  # end
+  def to_mysql do
+    :application.ensure_all_started(:myxql)
+    Allin.RepoMysql.start_link()
+    Allin.Repo.configure(Allin.RepoMysql)
+  end
 
-  # def to_psql do
-  #   :application.ensure_all_started(:postgrex)
-  #   Allin.RepoPsql.start_link()
-  #   Allin.Repo.configure(Allin.RepoPsql)
-  # end
+  def to_psql do
+    :application.ensure_all_started(:postgrex)
+    Allin.RepoPsql.start_link()
+    Allin.Repo.configure(Allin.RepoPsql)
+  end
 
-  # def to_sqlite do
-  #   :application.ensure_all_started(:exqlite)
-  #   Allin.RepoSqlite.start_link()
-  #   Allin.Repo.configure(Allin.RepoSqlite)
-  # end
+  def to_sqlite do
+    :application.ensure_all_started(:exqlite)
+    Allin.RepoSqlite.start_link()
+    Allin.Repo.configure(Allin.RepoSqlite)
+  end
 end
