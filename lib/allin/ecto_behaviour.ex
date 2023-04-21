@@ -1548,8 +1548,24 @@ defmodule Allin.EctoBehaviour do
       def one!(q), do: one!(q, [])
       def insert(q), do: insert(q, [])
       def insert!(q), do: insert!(q, [])
+      def get(q, id), do: get(q, id, [])
+      def get!(q, id), do: get!(q, id, [])
       def get_by(q, clauses), do: get_by(q, clauses, [])
       def get_by!(q, clauses), do: get_by!(q, clauses, [])
+      def delete_all(q), do: delete_all(q, [])
+
+      def adapter do
+        # `MaxoAdapt.SomeRepo` does not exist for dialyzer, use `Module.concat()`
+        module = Module.concat([MaxoAdapt, unquote(__CALLER__.module)])
+
+        if module_exists?(module) do
+          module.__maxo_adapt__()
+        end
+      end
+
+      defp module_exists?(mod) do
+        function_exported?(mod, :__info__, 1)
+      end
     end
   end
 end
