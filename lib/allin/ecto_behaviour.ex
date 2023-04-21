@@ -1649,13 +1649,23 @@ defmodule Allin.EctoBehaviour do
       def get_by!(q, clauses), do: get_by!(q, clauses, [])
       def delete_all(q), do: delete_all(q, [])
 
-      def adapter do
+      def query!(q), do: query!(q, [], [])
+      def query!(q, params), do: query!(q, params, [])
+
+      def query(q), do: query(q, [], [])
+      def query(q, params), do: query(q, params, [])
+
+      def maxo_adapt do
         # `MaxoAdapt.SomeRepo` does not exist for dialyzer, use `Module.concat()`
         module = Module.concat([MaxoAdapt, unquote(__CALLER__.module)])
 
         if module_exists?(module) do
           module.__maxo_adapt__()
         end
+      end
+
+      def db_driver do
+        maxo_adapt() && maxo_adapt().__adapter__()
       end
 
       defp module_exists?(mod) do
