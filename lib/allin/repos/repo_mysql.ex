@@ -3,4 +3,7 @@ defmodule Allin.RepoMysql do
     otp_app: :allin,
     adapter: Ecto.Adapters.MyXQL,
     priv: "priv/repo"
+
+  @impl true
+  def init(_context, config), do: {:ok, config}
 end
