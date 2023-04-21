@@ -41,14 +41,8 @@ defmodule Allin.Repos.Setup do
   end
 
   def ensure_current_stopped do
-    if module_exists?(MaxoAdapt.Allin.Repo) do
-      if mod = Allin.Repo.adapter() do
-        Allin.Repos.RepoSupervisor.stop_child(mod)
-      end
+    if mod = Allin.Repo.adapter() do
+      Allin.Repos.RepoSupervisor.stop_child(mod)
     end
-  end
-
-  def module_exists?(mod) do
-    function_exported?(mod, :__info__, 1)
   end
 end
