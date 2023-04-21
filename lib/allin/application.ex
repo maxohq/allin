@@ -1,11 +1,11 @@
 defmodule Allin.Application do
   @moduledoc false
   use Application
-  alias Allin.Setup
+  alias Allin.Repos.Setup
 
   @impl true
   def start(_type, _args) do
-    Allin.Setup.setup_repo!()
+    Setup.setup_repo!()
 
     children =
       maybe_start_repo("psql", Allin.RepoPsql) ++
