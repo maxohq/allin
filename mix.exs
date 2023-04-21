@@ -46,7 +46,7 @@ defmodule Allin.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:maxo_adapt, "~> 0.1.5"},
+      {:maxo_adapt, "~> 0.1.6"},
       # {:maxo_adapt, path: "/Users/roman/Desktop/EXPERIMENTS/maxo_adapt"},
       {:ecto, "~> 3.10"},
       # {:ecto, path: "deps/ecto", override: true},
