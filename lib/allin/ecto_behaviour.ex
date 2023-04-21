@@ -1542,6 +1542,14 @@ defmodule Allin.EctoBehaviour do
         @doc group: "Transaction API"
         @callback rollback(value :: any) :: no_return
       end
+
+      def all(q), do: all(q, [])
+      def one(q), do: one(q, [])
+      def one!(q), do: one!(q, [])
+      def insert(q), do: insert(q, [])
+      def insert!(q), do: insert!(q, [])
+      def get_by(q, clauses), do: get_by(q, clauses, [])
+      def get_by!(q, clauses), do: get_by!(q, clauses, [])
     end
   end
 end
