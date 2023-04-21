@@ -2,9 +2,7 @@ defmodule Allin.Repos.RepoSupervisor do
   @moduledoc """
   Dynamic supervisor to enable clean runtime switching for repo configuration
   """
-
   use DynamicSupervisor
-  alias Allin.Repos.Setup
 
   def start_link(init_arg) do
     DynamicSupervisor.start_link(__MODULE__, init_arg, name: __MODULE__)
@@ -26,10 +24,6 @@ defmodule Allin.Repos.RepoSupervisor do
   @impl true
   def init(_init_arg) do
     DynamicSupervisor.init(strategy: :one_for_one)
-  end
-
-  def maybe_start_repo(dbtype, repo) do
-    if Setup.dbtype?(dbtype), do: [repo], else: []
   end
 
   def children do
