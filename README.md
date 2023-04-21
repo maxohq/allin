@@ -75,3 +75,35 @@ iex(1)> Allin.Repo.query("select 2 + 2")
 Enjoy! 💜
 
 Start with the [lib/allin/application.ex](https://github.com/maxohq/allin/blob/main/lib/allin/application.ex) file to figure out the internal workings. It's not a lot of code :)
+
+### Details
+
+- mix app.config
+
+  - needed to make config/runtime.exs work with Repo config for Mix tasks
+  - https://elixirforum.com/t/config-runtime-exs-not-loaded-on-mix-tasks/38034
+
+- Allin.Application
+
+  - `maybe_start_repo` adds the correct Repo based on ENV variables to the children in the supervisor
+
+- Allin.Repos.Setup
+
+  - has quite some various functions for similar, but slightly different purposes:
+
+    - `Allin.Repos.Setup.setup_repo!(true)`
+      -> used in mix tasks to start the rep
+    - `Allin.Repos.Setup.setup_repo!()`
+      -> used in Application to prepare DB config without starting the Repo
+      -> the supervisor takes care of the starting part
+    - `Allin.Repos.Setup.setup_env()`
+      -> used in config/runtime.exs to configure the `:ecto_repos` list dynamically
+      -> is also ran on any live re-configuration of the repo
+    - `Allin.Repos.Setup.to_mysql()`
+      -> runtime switching to MySQL DB
+
+    - `Allin.Repos.Setup.to_psql()`
+      -> runtime switching to Postgres DB
+
+    - `Allin.Repos.Setup.to_sqlite()`
+      -> runtime switching to Sqlite DB

@@ -5,7 +5,7 @@ defmodule Allin.Application do
 
   @impl true
   def start(_type, _args) do
-    Setup.setup_repo!()
+    Setup.setup_repo!(false)
 
     children =
       maybe_start_repo("psql", Allin.RepoPsql) ++

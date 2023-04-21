@@ -16,7 +16,8 @@ defmodule Allin.MixProject do
       test_pattern: "*_test.exs",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      package: package()
+      package: package(),
+      aliases: aliases()
     ]
   end
 
@@ -64,6 +65,15 @@ defmodule Allin.MixProject do
       {:ex_doc, "~> 0.29", only: :dev, runtime: false},
       {:maxo_test_iex, "~> 0.1", only: [:test]},
       {:mneme, "~> 0.3", only: [:test]}
+    ]
+  end
+
+  defp aliases do
+    [
+      setup: ~w|deps.get ecto.setup|,
+      "ecto.setup": ~w|app.config ecto.create ecto.migrate|,
+      "ecto.reset": ~w|app.config ecto.drop ecto.setup|,
+      test: ["app.config", "ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
 end

@@ -1,11 +1,11 @@
 defmodule Allin.Repos.Setup do
   @valid_db_types ["mysql", "psql", "sqlite"]
 
-  def setup_repo! do
+  def setup_repo!(boot \\ true) do
     assert_correct_db_type!()
-    if dbtype?("mysql"), do: to_mysql(false)
-    if dbtype?("psql"), do: to_psql(false)
-    if dbtype?("sqlite"), do: to_sqlite(false)
+    if dbtype?("mysql"), do: to_mysql(boot)
+    if dbtype?("psql"), do: to_psql(boot)
+    if dbtype?("sqlite"), do: to_sqlite(boot)
   end
 
   def assert_correct_db_type! do
@@ -14,6 +14,11 @@ defmodule Allin.Repos.Setup do
     end
   end
 
+  def repo_module(), do: repo_module(dbtype())
+  def repo_module("mysql"), do: Allin.RepoMysql
+  def repo_module("psql"), do: Allin.RepoPsql
+  def repo_module("sqlite"), do: Allin.RepoSqlite
+
   def dbtype, do: System.get_env("DBTYPE")
   def dbtype?(type), do: dbtype() == type
 
@@ -21,7 +26,14 @@ defmodule Allin.Repos.Setup do
   def to_psql(boot \\ true), do: setup_repo(:postgrex, Allin.RepoPsql, boot)
   def to_sqlite(boot \\ true), do: setup_repo(:exqlite, Allin.RepoSqlite, boot)
 
+  def setup_env(repo \\ nil) do
+    repo = if repo, do: repo, else: repo_module()
+    Application.put_env(:allin, :ecto_repos, [repo])
+  end
+
   defp setup_repo(db_app, repo_mod, start_repo) do
+    setup_env(repo_mod)
+    :application.ensure_all_started(:ecto_sql)
     :application.ensure_all_started(db_app)
     if start_repo, do: repo_mod.start_link()
     Allin.Repo.configure(repo_mod)

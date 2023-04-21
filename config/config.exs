@@ -18,16 +18,6 @@ config :allin, Allin.RepoMysql,
   port: 5552,
   priv: "priv/repo"
 
-config :allin, Allin.RepoSqlite, database: "./data/allin_dev.db", priv: "priv/repo"
-config :allin, Allin.Repo, database: "./data/allin_dev.db", priv: "priv/repo"
-
-config :allin,
-  # ecto_repos: [Allin.RepoSqlite, Allin.RepoMysql, Allin.RepoPsql]
-  ecto_repos: [Allin.RepoSqlite]
-
-# config :allin,
-#   ecto_repos: [Allin.Repo]
-
-# config :maxo_adapt, allin_repo2: Allin.RepoPsql
-
-config :maxo_adapt, allin_repo2: Allin.RepoPsql
+config :allin, Allin.RepoSqlite,
+  database: "./data/allin_dev.db",
+  priv: "priv/repo"
