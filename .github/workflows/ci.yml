@@ -53,3 +53,5 @@ jobs:
       - run: mix deps.compile
       - run: mix format --check-formatted
       - run: DBTYPE=sqlite mix test
+      - run: DBTYPE=mysql mix test
+      - run: DBTYPE=psql mix test
