@@ -32,10 +32,23 @@ defmodule Allin.Repos.Setup do
   end
 
   defp setup_repo(db_app, repo_mod, start_repo) do
+    ensure_current_stopped()
     setup_env(repo_mod)
     :application.ensure_all_started(:ecto_sql)
     :application.ensure_all_started(db_app)
-    if start_repo, do: repo_mod.start_link()
+    if start_repo, do: Allin.Repos.RepoSupervisor.start_child(repo_mod)
     Allin.Repo.configure(repo_mod)
+  end
+
+  def ensure_current_stopped do
+    if module_exists?(MaxoAdapt.Allin.Repo) do
+      if mod = Allin.Repo.adapter() do
+        Allin.Repos.RepoSupervisor.stop_child(mod)
+      end
+    end
+  end
+
+  def module_exists?(mod) do
+    function_exported?(mod, :__info__, 1)
   end
 end
