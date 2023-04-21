@@ -2,10 +2,8 @@ defmodule Allin.Schemas.User do
   use Ecto.Schema
 
   schema "users" do
-    field(:city, :string)
-    field(:temp_lo, :integer)
-    field(:temp_hi, :integer)
-    field(:prcp, :float)
+    field(:name, :string)
+    field(:email, :string)
     timestamps()
   end
 end
