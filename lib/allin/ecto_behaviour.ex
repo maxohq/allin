@@ -1541,6 +1541,101 @@ defmodule Allin.EctoBehaviour do
         """
         @doc group: "Transaction API"
         @callback rollback(value :: any) :: no_return
+
+        ###################### FROM SQL ADAPTER ###########################
+        ### - https://github.com/elixir-ecto/ecto_sql/blob/master/lib/ecto/adapters/sql.ex#L642
+
+        @doc """
+        A convenience function for SQL-based repositories that executes the given query.
+
+        See `Ecto.Adapters.SQL.query/4` for more information.
+        """
+        @callback query(iodata, [term], Keyword.t()) ::
+                    {:ok,
+                     %{
+                       :rows => nil | [[term] | binary],
+                       :num_rows => non_neg_integer,
+                       optional(atom) => any
+                     }}
+                    | {:error, Exception.t()}
+
+        @doc """
+        A convenience function for SQL-based repositories that executes the given query.
+
+        See `Ecto.Adapters.SQL.query!/4` for more information.
+        """
+        @callback query!(iodata, [term], Keyword.t()) ::
+                    %{
+                      :rows => nil | [[term] | binary],
+                      :num_rows => non_neg_integer,
+                      optional(atom) => any
+                    }
+
+        @doc """
+        A convenience function for SQL-based repositories that executes the given multi-result query.
+
+        See `Ecto.Adapters.SQL.query_many/4` for more information.
+        """
+        @callback query_many!(
+                    iodata,
+                    [term],
+                    Keyword.t()
+                  ) ::
+                    [
+                      %{
+                        :rows => nil | [[term] | binary],
+                        :num_rows => non_neg_integer,
+                        optional(atom) => any
+                      }
+                    ]
+
+        @doc """
+        A convenience function for SQL-based repositories that executes the given multi-result query.
+
+        See `Ecto.Adapters.SQL.query_many!/4` for more information.
+        """
+        @callback query_many(
+                    iodata,
+                    [term],
+                    Keyword.t()
+                  ) ::
+                    {:ok,
+                     [
+                       %{
+                         :rows => nil | [[term] | binary],
+                         :num_rows => non_neg_integer,
+                         optional(atom) => any
+                       }
+                     ]}
+                    | {:error, Exception.t()}
+
+        @doc """
+        A convenience function for SQL-based repositories that translates the given query to SQL.
+
+        See `Ecto.Adapters.SQL.to_sql/3` for more information.
+        """
+        @callback to_sql(:all | :update_all | :delete_all, Ecto.Queryable.t()) ::
+                    {String.t(), [term]}
+
+        @doc """
+        A convenience function for SQL-based repositories that executes an EXPLAIN statement or similar
+        depending on the adapter to obtain statistics for the given query.
+
+        See `Ecto.Adapters.SQL.explain/4` for more information.
+        """
+        @callback explain(
+                    :all | :update_all | :delete_all,
+                    Ecto.Queryable.t(),
+                    opts :: Keyword.t()
+                  ) :: String.t() | Exception.t()
+
+        @doc """
+        A convenience function for SQL-based repositories that forces all connections in the
+        pool to disconnect within the given interval.
+
+        See `Ecto.Adapters.SQL.disconnect_all/3` for more information.
+        """
+        @callback disconnect_all(non_neg_integer, opts :: Keyword.t()) :: :ok
       end
 
       def all(q), do: all(q, [])
