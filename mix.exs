@@ -45,14 +45,14 @@ defmodule Allin.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:maxo_adapt, "~> 0.1"},
-      {:beam_file, git: "https://github.com/hrzndhrn/beam_file"},
-      {:maxo_adapt, path: "/Users/roman/Desktop/EXPERIMENTS/maxo_adapt"},
-      # {:ecto, "~> 3.10"},
-      {:ecto, path: "deps/ecto", override: true},
+      {:maxo_adapt, "~> 0.1.4"},
+      # {:maxo_adapt, path: "/Users/roman/Desktop/EXPERIMENTS/maxo_adapt"},
+      {:ecto, "~> 3.10"},
+      # {:ecto, path: "deps/ecto", override: true},
+
       {:ecto_sql, "~> 3.10"},
-      # {:ecto_sqlite3, "~> 0.10"},
-      {:ecto_sqlite3, path: "deps/ecto_sqlite3"},
+      {:ecto_sqlite3, "~> 0.10"},
+      # {:ecto_sqlite3, path: "deps/ecto_sqlite3"},
 
       # DB drivers
       {:postgrex, "~> 0.17", optional: false},
@@ -60,6 +60,7 @@ defmodule Allin.MixProject do
       {:exqlite, "~> 0.13", optional: false},
 
       # DEV
+      # {:beam_file, git: "https://github.com/hrzndhrn/beam_file"},
       {:ex_doc, "~> 0.29", only: :dev, runtime: false},
       {:maxo_test_iex, "~> 0.1", only: [:test]},
       {:mneme, "~> 0.3", only: [:test]}
