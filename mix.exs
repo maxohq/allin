@@ -47,13 +47,9 @@ defmodule Allin.MixProject do
   defp deps do
     [
       {:maxo_adapt, "~> 0.1.7"},
-      # {:maxo_adapt, path: "/Users/roman/Desktop/EXPERIMENTS/maxo_adapt"},
       {:ecto, "~> 3.10"},
-      # {:ecto, path: "deps/ecto", override: true},
-
       {:ecto_sql, "~> 3.10"},
       {:ecto_sqlite3, "~> 0.10"},
-      # {:ecto_sqlite3, path: "deps/ecto_sqlite3"},
 
       # DB drivers
       {:postgrex, "~> 0.17", optional: false},
@@ -61,7 +57,6 @@ defmodule Allin.MixProject do
       {:exqlite, "~> 0.13", optional: false},
 
       # DEV
-      # {:beam_file, git: "https://github.com/hrzndhrn/beam_file"},
       {:ex_doc, "~> 0.29", only: :dev, runtime: false},
       {:maxo_test_iex, "~> 0.1", only: [:test]},
       {:mneme, "~> 0.3", only: [:test]}
@@ -73,6 +68,7 @@ defmodule Allin.MixProject do
       setup: ~w|deps.get ecto.setup|,
       "ecto.setup": ~w|app.config ecto.create ecto.migrate|,
       "ecto.reset": ~w|app.config ecto.drop ecto.setup|,
+      "ecto.gen.migration": ~w|app.config ecto.gen.migration|,
       test: ["app.config", "ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
