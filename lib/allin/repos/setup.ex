@@ -23,16 +23,16 @@ defmodule Allin.Repos.Setup do
   def dbtype, do: System.get_env("DBTYPE")
   def dbtype?(type), do: dbtype() == type
 
-  def to_mysql(boot \\ true), do: setup_repo(:myxql, Allin.RepoMysql, boot)
-  def to_psql(boot \\ true), do: setup_repo(:postgrex, Allin.RepoPsql, boot)
-  def to_sqlite(boot \\ true), do: setup_repo(:exqlite, Allin.RepoSqlite, boot)
+  def to_mysql(boot \\ true), do: ensure_repo_started(:myxql, Allin.RepoMysql, boot)
+  def to_psql(boot \\ true), do: ensure_repo_started(:postgrex, Allin.RepoPsql, boot)
+  def to_sqlite(boot \\ true), do: ensure_repo_started(:exqlite, Allin.RepoSqlite, boot)
 
   def setup_env(repo \\ nil) do
     repo = if repo, do: repo, else: repo_module()
     Application.put_env(:allin, :ecto_repos, [repo])
   end
 
-  defp setup_repo(db_app, repo_mod, start_repo) do
+  defp ensure_repo_started(db_app, repo_mod, start_repo) do
     ensure_current_stopped()
     setup_env(repo_mod)
     :application.ensure_all_started(:ecto_sql)

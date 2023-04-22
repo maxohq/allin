@@ -11,8 +11,7 @@ defmodule Allin.Application do
 
     opts = [strategy: :one_for_one, name: Allin.Supervisor]
     res = Supervisor.start_link(children, opts)
-    # Ensures we setup the registry for our "adapter"-repo.
-    # has to be done after start of the actual repo for the selected DB
+    # Add the initial repo to our RepoSupervisor
     Setup.setup_repo!(true)
     res
   end
