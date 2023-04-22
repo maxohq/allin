@@ -1,5 +1,6 @@
 defmodule Allin.Repos.Setup do
   @valid_db_types ["mysql", "psql", "sqlite"]
+  @main_repo Allin.Repo
 
   def setup_repo!(boot \\ true) do
     assert_correct_db_type!()
@@ -37,11 +38,11 @@ defmodule Allin.Repos.Setup do
     :application.ensure_all_started(:ecto_sql)
     :application.ensure_all_started(db_app)
     if start_repo, do: Allin.Repos.RepoSupervisor.start_child(repo_mod)
-    Allin.Repo.configure(repo_mod)
+    @main_repo.configure(repo_mod)
   end
 
   def ensure_current_stopped do
-    if mod = Allin.Repo.maxo_adapt() do
+    if mod = @main_repo.maxo_adapt() do
       Allin.Repos.RepoSupervisor.stop_child(mod)
     end
   end

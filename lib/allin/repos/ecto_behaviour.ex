@@ -1,4 +1,4 @@
-defmodule Allin.EctoBehaviour do
+defmodule Allin.Repos.EctoBehaviour do
   defmacro __using__(opts) do
     quote do
       use MaxoAdapt, unquote(opts)
