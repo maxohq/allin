@@ -1,4 +1,0 @@
-
-mix ecto.gen.repo -r Allin.RepoSqlite
-mix ecto.gen.repo -r Allin.RepoMysql
-mix ecto.gen.repo -r Allin.RepoPsql
