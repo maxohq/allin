@@ -1655,6 +1655,8 @@ defmodule Allin.Repos.EctoBehaviour do
       def query(q), do: query(q, [], [])
       def query(q, params), do: query(q, params, [])
 
+      def insert_all(q, items), do: insert_all(q, items, [])
+
       def maxo_adapt do
         # `MaxoAdapt.SomeRepo` does not exist for dialyzer, use `Module.concat()`
         module = Module.concat([MaxoAdapt, unquote(__CALLER__.module)])

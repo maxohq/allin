@@ -34,7 +34,7 @@ defmodule Check do
         Map.merge(defaults, %{name: "#{prefix}-#{i}"})
       end
 
-    Repo.insert_all(User, rows, [])
+    Repo.insert_all(User, rows)
   end
 
   def now(), do: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
