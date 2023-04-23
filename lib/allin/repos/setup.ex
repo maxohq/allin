@@ -41,6 +41,13 @@ defmodule Allin.Repos.Setup do
     @main_repo.configure(repo_mod)
   end
 
+  def start_dynamic(repo_mod, opts) do
+    ensure_current_stopped()
+    setup_env(repo_mod)
+    Allin.Repos.RepoSupervisor.start_child(repo_mod, opts)
+    @main_repo.configure(repo_mod)
+  end
+
   def ensure_current_stopped do
     if mod = @main_repo.maxo_adapt() do
       Allin.Repos.RepoSupervisor.stop_child(mod)

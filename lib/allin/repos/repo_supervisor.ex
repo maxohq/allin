@@ -13,6 +13,11 @@ defmodule Allin.Repos.RepoSupervisor do
     DynamicSupervisor.start_child(__MODULE__, spec)
   end
 
+  def start_child(repo, opts) when is_list(opts) do
+    spec = %{id: repo, start: {repo, :start_link, [opts]}}
+    DynamicSupervisor.start_child(__MODULE__, spec)
+  end
+
   def stop_child(repo) do
     pid = pid_for_repo(repo)
 
